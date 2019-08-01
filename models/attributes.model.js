@@ -10,6 +10,4 @@ const attributesModel = new Schema(
   }, { collection: 'attributes' }
 );
 
-const Attributes = mongoose.model('attributes', attributesModel);
-
-export default Attributes;
+export const Attributes = mongoose.model('attributes', attributesModel);

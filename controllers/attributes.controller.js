@@ -1,5 +1,5 @@
-export default function attributesController(Abilities) {
-  function get(req, res) {
+export const attributesController = (Abilities) => {
+  const get = (req, res) => {
     const query = {};
     Abilities.find(query, null)
       .exec((err, attributes) => {
@@ -8,7 +8,7 @@ export default function attributesController(Abilities) {
         }
         return res.json(attributes);
       });
-  }
+  };
 
   return { get };
-}
+};

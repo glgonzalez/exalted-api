@@ -1,4 +1,4 @@
-export default function abilitiesController(Abilities) {
+export const abilitiesController = (Abilities) => {
   function get(req, res) {
     const query = {};
     Abilities.find(query, null)
@@ -11,4 +11,4 @@ export default function abilitiesController(Abilities) {
   }
 
   return { get };
-}
+};

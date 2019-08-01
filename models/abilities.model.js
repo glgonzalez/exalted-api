@@ -9,6 +9,4 @@ const abilitiesModel = new Schema(
   }, { collection: 'abilities' }
 );
 
-const Abilities = mongoose.model('abilities', abilitiesModel);
-
-export default Abilities;
+export const Abilities = mongoose.model('abilities', abilitiesModel);

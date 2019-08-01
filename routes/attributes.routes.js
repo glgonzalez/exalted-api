@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import attributesController from '../controllers/attributes.controller';
+import { attributesController } from '../controllers';
 
-export default function routes(Attributes) {
+export const attributeRoutes = (Attributes) => {
   const attributesRouter = Router();
   const controller = attributesController(Attributes);
 
   attributesRouter.route('/').get(controller.get);
 
   return attributesRouter;
-}
+};

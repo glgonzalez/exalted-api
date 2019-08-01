@@ -2,21 +2,24 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import Abilities from './models/abilities.model';
-import Attributes from './models/attributes.model';
-import abilitiesRouter from './routes/abilities.routes';
-import attributesRouter from './routes/attributes.routes';
+import { Abilities, Attributes, Users } from './models';
+import {
+  abilityRoutes,
+  attributeRoutes,
+  usersRoutes,
+  authenticateRoutes
+} from './routes';
 
 const app = express();
 
 if (process.env.env === 'local') {
   // eslint-disable-next-line no-console
   console.log('Test Environment');
-  const db = mongoose.connect('mongodb://localhost/exalted', { useNewUrlParser: true });
+  mongoose.connect('mongodb://localhost/exalted', { useNewUrlParser: true });
 } else {
   // eslint-disable-next-line no-console
   console.log('Developement');
-  const db = mongoose.connect('mongodb+srv://glgonzalez:exalted051389@exalted-ljnph.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, dbName: 'exalted' })
+  mongoose.connect('mongodb+srv://glgonzalez:exalted051389@exalted-ljnph.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, dbName: 'exalted' })
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
@@ -31,8 +34,10 @@ app.use(
   bodyParser.json()
 );
 
-app.use('/api/abilities', abilitiesRouter(Abilities));
-app.use('/api/attributes', attributesRouter(Attributes));
+app.use('/api/abilities', abilityRoutes(Abilities));
+app.use('/api/attributes', attributeRoutes(Attributes));
+app.use('/api/users', usersRoutes(Users));
+app.use('/api/authenticate', authenticateRoutes(Users));
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Exalted API');
@@ -41,6 +46,9 @@ app.get('/', (req, res) => {
 app.server = app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Running on port ${port}`);
+  if (!process.env.JWT_SECRET) {
+    process.env.JWT_SECRET = 'exaltedapisecret';
+  }
 });
 
 export default app;
