@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+import mongoose, { Schema } from 'mongoose';
 
 const abilitiesModel = new Schema(
   {
@@ -11,4 +9,6 @@ const abilitiesModel = new Schema(
   }, { collection: 'abilities' }
 );
 
-module.exports = mongoose.model('abilities', abilitiesModel);
+const Abilities = mongoose.model('abilities', abilitiesModel);
+
+export default Abilities;

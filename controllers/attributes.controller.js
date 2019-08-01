@@ -1,4 +1,4 @@
-function attributesController(Abilities) {
+export default function attributesController(Abilities) {
   function get(req, res) {
     const query = {};
     Abilities.find(query, null)
@@ -12,5 +12,3 @@ function attributesController(Abilities) {
 
   return { get };
 }
-
-module.exports = attributesController;

@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+import mongoose, { Schema } from 'mongoose';
 
 const attributesModel = new Schema(
   {
@@ -12,4 +10,6 @@ const attributesModel = new Schema(
   }, { collection: 'attributes' }
 );
 
-module.exports = mongoose.model('attributes', attributesModel);
+const Attributes = mongoose.model('attributes', attributesModel);
+
+export default Attributes;

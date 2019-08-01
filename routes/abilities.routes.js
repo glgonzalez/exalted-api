@@ -1,14 +1,11 @@
-/* eslint-disable no-param-reassign */
-const express = require('express');
-const abilitiesController = require('../controllers/abilities.controller');
+import { Router } from 'express';
+import abilitiesController from '../controllers/abilities.controller';
 
-function routes(Abilities) {
-  const abilitiesRouter = express.Router();
+export default function routes(Abilities) {
+  const abilitiesRouter = Router();
   const controller = abilitiesController(Abilities);
 
   abilitiesRouter.route('/').get(controller.get);
 
   return abilitiesRouter;
 }
-
-module.exports = routes;
