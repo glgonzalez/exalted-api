@@ -29,7 +29,7 @@ export const authenticateController = (Users) => {
 
         });
       } catch (e) {
-        next(new Error(e));
+        return next(new Error(e));
       }
     });
   };
