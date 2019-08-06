@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { attributesController } from '../controllers';
+import { attributesController } from './attributes.controller';
 
 export const attributeRoutes = (Attributes) => {
   const attributesRouter = Router();

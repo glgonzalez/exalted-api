@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { abilitiesController } from '../controllers';
+import { abilitiesController } from './abilities.controller';
 
 export const abilityRoutes = (Abilities) => {
   const abilitiesRouter = Router();

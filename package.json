@@ -7,8 +7,8 @@
     "test": "env=test mocha tests/**/*.test.js",
     "lint-init": "eslint -- --init",
     "lint": "eslint .",
-    "start": "env=dev nodemon --exec babel-node app.js",
-    "start-local": "env=local nodemon --exec babel-node app.js"
+    "start": "env=production nodemon --exec babel-node app.js",
+    "dev": "env=dev nodemon --exec babel-node app.js"
   },
   "author": "Gilliano Gonzalez",
   "license": "ISC",
