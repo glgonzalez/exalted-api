@@ -1,7 +1,15 @@
 import { createAuthToken, verifyPassword } from '../../middleware';
 
 export const authenticateController = (Users) => {
-  const post = (req, res) => {
+  const post = (req, res, next) => {
+    if (!req.body.username) {
+      throw new Error('username.missing');
+    }
+
+    if (!req.body.passowrd) {
+      throw new Error('password.missing');
+    }
+
     Users.findOne({ username: req.body.username }).exec(async (err, user) => {
       try {
         const passwordMatch = await verifyPassword(req.body.password, user.password);
@@ -21,11 +29,7 @@ export const authenticateController = (Users) => {
 
         });
       } catch (e) {
-        console.log(e);
-        return res.status(404).send({
-          status: res.status,
-          message: 'User not found',
-        });
+        next(new Error(e));
       }
     });
   };
