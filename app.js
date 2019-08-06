@@ -1,7 +1,7 @@
 import express from 'express';
 import apiRouter from './src';
-import appMiddleware from './middleware/appMiddleware';
-import config from './config/config';
+import { appMiddleware } from './middleware';
+import config from './config';
 
 const app = express();
 

@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import config from '../config/config';
+import config from '../config';
 
 export const createAuthToken = async (details) => {
   if (typeof details !== 'object') {

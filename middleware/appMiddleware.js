@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import config from '../config/config';
+import config from '../config';
 
-export default function appMiddleware(app) {
+export function appMiddleware(app) {
   try {
     mongoose.connect(config.db, { useNewUrlParser: true, dbName: 'exalted' });
   } catch (e) {
