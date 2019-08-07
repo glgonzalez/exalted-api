@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcrypt';
+import { createAuthToken } from '../../middleware';
 
 export const usersController = (Users) => {
   const get = (req, res) => {
@@ -25,20 +26,25 @@ export const usersController = (Users) => {
     });
   };
 
-  const post = async (req, res) => {
+  const post = async (req, res, next) => {
     try {
       const saltRounds = 10;
       req.body.password = await bcrypt.hash(req.body.password, saltRounds);
       const user = new Users(req.body);
-      user.save();
-      res.status(201);
-      return res.json(user);
+      const savedUser = await user.save();
+      const token = await createAuthToken({ payloadData: savedUser, maxAge: 3600 });
+      return res.status(201)
+        .send({
+          status: res.status,
+          user: {
+            username: savedUser.username,
+            email: savedUser.email,
+            role: savedUser.role
+          },
+          access_token: token
+        });
     } catch (err) {
-      return res.status(500).send({
-        status: res.status,
-        message: 'Something went wrong',
-        error: err
-      });
+      return next(err);
     }
   };
 

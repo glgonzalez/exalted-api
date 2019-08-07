@@ -5,7 +5,7 @@ import config from '../config';
 
 export function appMiddleware(app) {
   try {
-    mongoose.connect(config.db, { useNewUrlParser: true, dbName: 'exalted' });
+    mongoose.connect(config.db, { useNewUrlParser: true, useCreateIndex: true, dbName: 'exalted' });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e);
