@@ -1,17 +1,23 @@
-import express from 'express';
+import express, { Express } from 'express';
+import dotenv from 'dotenv';
 import cors from 'cors';
+import healthCheckRouter from './routes/health-check';
+import connect from './utils/database';
+import usersRouter from './routes/users';
+import authenticationRouter from './routes/authentication';
+import routes from './routes';
 
-const port = 8080;
-const app = express();
+dotenv.config();
+
+const app: Express = express();
+const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: true}));
 
-app.get('/', (req, res) => {
-    res.status(200).send('Welcome to the unofficial exalted api');
-});
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+app.listen(port, async () => {
+  await connect();
+  routes(app);
+  console.log(`[server]: Server is running at https://localhost:${port}`);
 });

@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  exalted_api:
+    container_name: exalted_api
+    image: exalted_api:1.0.0
+    restart: always
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - PGDATABASE=exalted_db
+      - PGUSER=postgres
+      - PGPASSWORD=password
+      - PGHOST=exalted_db
+    depends_on:
+      - exalted_db
+    volumes:
+    - .:/usr/src/app
+
+  exalted_db:
+    container_name: exalted_db
+    image: "postgres:14"
+    ports:
+      - '5432:${DB_PORT}'
+    volumes:
+      - data:/data/exalted_db
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+volumes: 
+ data: {}
