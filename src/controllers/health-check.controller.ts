@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction} from 'express';
+import { Request, Response} from 'express';
 
-const healthCheck = (req: Request, res: Response, next: NextFunction) => {
+const healthCheck = (req: Request, res: Response) => {
   return res.sendStatus(200);
 };
 
