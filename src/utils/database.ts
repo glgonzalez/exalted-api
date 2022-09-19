@@ -21,7 +21,7 @@ const connect = async () => {
     await db.sync({ force: false});
     console.log('Connected to database successfully');
   } catch(e) {
-    console.error('Cound not connect to database');
+    console.error('Cound not connect to database: ', e);
     process.exit(1);
   }
 }

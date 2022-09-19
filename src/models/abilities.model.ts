@@ -1,12 +1,13 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import { db } from '../utils/database';
 
-interface ExaltType {
+interface Abilities {
   id?: number;
   name: string;
+  type: string;
 }
 
-const exaltTypeModel = db.define<Model<ExaltType>>('exalt-types', {
+const abilitiesModel = db.define<Model<Abilities>>('abilities', {
   id: {
     type: INTEGER,
     allowNull: false,
@@ -16,7 +17,11 @@ const exaltTypeModel = db.define<Model<ExaltType>>('exalt-types', {
   name: {
     type: STRING,
     allowNull: false
+  },
+  type: {
+    type: STRING,
+    allowNull: false
   }
 });
 
-export default exaltTypeModel;
+export default abilitiesModel;
