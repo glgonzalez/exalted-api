@@ -21,7 +21,4 @@ jobs:
 workflows:
   install-build-workflow:
     jobs:
-      - install-deps
-      - build:
-          requires:
-            - install-deps
+      - build
