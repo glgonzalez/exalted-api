@@ -7,9 +7,7 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - node/install-packages:
-          environment:
-            HOME: .
+      - node/install-packages
       - run:
           name: "Build"
           command: npm run build
