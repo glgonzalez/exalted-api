@@ -4,6 +4,7 @@ orbs:
 
 jobs:
   build:
+    working-directory: ~/exalted-api
     executor: node/default
     docker:
       - image: cimg/base:stable
