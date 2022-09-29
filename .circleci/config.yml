@@ -1,0 +1,26 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.2
+
+jobs:
+  build:
+    docker:
+      - image: 'node:10.15.3'
+    executor: node/default
+    steps:
+      - checkout
+      - run:
+          command: npm install
+          environment:
+            HOME: .
+      - run:
+          name: "Build"
+          command: npm run build
+      - store_artifacts:
+          path: ./dist
+          destination: artifacts
+
+workflows:
+  install-build-workflow:
+    jobs:
+      - build
