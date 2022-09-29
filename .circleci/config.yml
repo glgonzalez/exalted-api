@@ -15,7 +15,6 @@ jobs:
           command: npm run build
       - store_artifacts:
           path: ./dist
-          destination: artifacts
 
 workflows:
   build-workflow:
