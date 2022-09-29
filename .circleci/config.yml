@@ -3,6 +3,13 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
+  checkout:
+    - checkout
+  install-deps:
+    - node/install-packages:
+        pkg-manager: npm
+        environment:
+          HOME: .
   build:
     executor: node/default
     steps:
@@ -16,6 +23,12 @@ jobs:
           destination: artifacts
 
 workflows:
-  build-workflow:
+  install-build-workflow:
     jobs:
-      - build
+      - checkout
+      - install-deps:
+          requires: 
+            - checkout
+      - build:
+          requires: 
+            - install-deps
