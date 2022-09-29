@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  install-deps:
+  build:
     executor: node/default
     docker:
       - image: cimg/base:stable
@@ -12,10 +12,13 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: "Install Dependecies"
-          command: npm install
+          name: "Build"
+          command: npm run build
+      - store_artifacts:
+          path: ./dist
+          destination: artifacts
 
 workflows:
-  intall-deps-workflow:
+  build-workflow:
     jobs:
       - install-deps
