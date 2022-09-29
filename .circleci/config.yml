@@ -4,6 +4,7 @@ orbs:
 
 jobs:
   install-deps:
+    executor: node/default
     steps:
       - checkout
       - run:
