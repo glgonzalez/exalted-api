@@ -3,9 +3,8 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  checkout-repo:
-    - checkout
   install-deps:
+    - checkout
     - node/install-packages:
         pkg-manager: npm
         environment:
@@ -25,10 +24,7 @@ jobs:
 workflows:
   install-build-workflow:
     jobs:
-      - checkout-repo
-      - install-deps:
-          requires: 
-            - checkout
+      - install-deps
       - build:
           requires: 
             - install-deps
