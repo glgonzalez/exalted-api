@@ -3,13 +3,14 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  checkout:
+  install-deps:
     steps:
       - checkout
+      - run:
+        command: npm install
   build:
     executor: node/default
     steps:
-      - node/install-packages
       - run:
           name: "Build"
           command: npm run build
@@ -20,4 +21,7 @@ jobs:
 workflows:
   install-build-workflow:
     jobs:
-      - build
+      - install-deps
+      - build:
+          requires:
+            - install-deps
