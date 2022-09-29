@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@5.0.2
 
 jobs:
-  checkout:
+  checkout-repo:
     - checkout
   install-deps:
     - node/install-packages:
@@ -25,7 +25,7 @@ jobs:
 workflows:
   install-build-workflow:
     jobs:
-      - checkout
+      - checkout-repo
       - install-deps:
           requires: 
             - checkout
