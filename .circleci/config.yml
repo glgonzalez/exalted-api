@@ -21,4 +21,4 @@ jobs:
 workflows:
   build-workflow:
     jobs:
-      - install-deps
+      - build
