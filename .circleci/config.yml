@@ -9,8 +9,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
+      - node/install-packages
       - run:
           name: "Build"
           command: npm run build
