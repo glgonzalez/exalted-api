@@ -4,8 +4,6 @@ orbs:
 
 jobs:
   build:
-    docker:
-      - image: 'node:10.15.3'
     executor: node/default
     steps:
       - checkout
