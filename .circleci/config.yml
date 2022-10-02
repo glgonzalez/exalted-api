@@ -19,7 +19,13 @@ jobs:
           destination: artifacts
       - persist_to_workspace:
           root: ~/
-          paths: project/dist
+          paths: 
+            - project/dist
+            - project/node_modules
+  test:
+    steps:
+      - run:
+          command: ls node_modules
 
 workflows:
   install-build-workflow:
