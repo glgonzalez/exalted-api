@@ -32,3 +32,6 @@ workflows:
   install-build-workflow:
     jobs:
       - build
+      - test:
+          requires:
+            - build
