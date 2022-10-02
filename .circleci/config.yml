@@ -23,6 +23,7 @@ jobs:
             - project/dist
             - project/node_modules
   test:
+    executor: node/default
     steps:
       - run:
           command: ls node_modules
