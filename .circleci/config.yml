@@ -25,6 +25,8 @@ jobs:
   test:
     executor: node/default
     steps:
+      - attach_workspace:
+          at: ~/
       - run:
           command: ls node_modules
 
