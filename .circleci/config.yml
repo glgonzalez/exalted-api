@@ -17,6 +17,9 @@ jobs:
       - store_artifacts:
           path: ./dist
           destination: artifacts
+      - persist_to_workspace:
+          root: ~/
+          paths: project/dist
 
 workflows:
   install-build-workflow:
