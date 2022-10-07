@@ -28,7 +28,7 @@ jobs:
     steps:
       - run:
           command: |
-            echo 'export RELEASE_VERSION=`echo ${CIRCLE_BRANCH} | cut -d '/' -f 2`' >> "$BASH_ENV"
+            echo 'export RELEASE_VERSION=`echo ${CIRCLE_TAG} | cut -d '/' -f 2`' >> "$BASH_ENV"
             source $BASH_ENV
       - checkout
       - attach_workspace:
@@ -41,19 +41,19 @@ jobs:
 workflows:
   install-build-workflow:
     jobs:
-      - build
-          # filters:
-          #   tags:
-          #     only: /release\/.*/
-          #   branches: 
-          #     ignore: /.*/
+      - build:
+          filters:
+            tags:
+              only: /release\/.*/
+            branches: 
+              ignore: /.*/
       - deploy-to-s3:
           context:
             - exalted
           requires:
             - build
-          # filters:
-          #   tags:
-          #     only: /release\/.*/
-          #   branches:
-          #     ignore: /.*/
+          filters:
+            tags:
+              only: /release\/.*/
+            branches:
+              ignore: /.*/
