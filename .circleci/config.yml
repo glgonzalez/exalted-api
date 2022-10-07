@@ -26,13 +26,12 @@ jobs:
     docker:
       - image: 'cimg/python:3.6'
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/
       - run:
           command: |
             echo 'export RELEASE_VERSION=`echo ${CIRCLE_TAG} | cut -d '/' -f 2`' >> "$BASH_ENV"
-            echo $RELEASE_VERSION
+      - checkout
+      - attach_workspace:
+          at: ~/
       # - aws-s3/sync:
       #     arguments: --acl public-read
       #     from: ~/project/dist
