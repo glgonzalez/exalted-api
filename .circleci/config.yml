@@ -31,7 +31,7 @@ jobs:
           at: ~/
       - run:
           command: |
-            export 'echo RELEASE_VERSION=`${CIRCLE_TAG} | cut -d '/' -f 2`'
+            echo 'export RELEASE_VERSION=`echo ${CIRCLE_TAG} | cut -d '/' -f 2`' ?? "$BASH_ENV"
             echo $RELEASE_VERSION
       # - aws-s3/sync:
       #     arguments: --acl public-read
