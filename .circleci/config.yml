@@ -29,13 +29,14 @@ jobs:
       - run:
           command: |
             echo 'export RELEASE_VERSION=`echo ${CIRCLE_TAG} | cut -d '/' -f 2`' >> "$BASH_ENV"
+            source $BASH_ENV
       - checkout
       - attach_workspace:
           at: ~/
-      # - aws-s3/sync:
-      #     arguments: --acl public-read
-      #     from: ~/project/dist
-      #     to: 's3://exalted-apps/${CIRCLE_TAG}/exalted-api'
+      - aws-s3/sync:
+          arguments: --acl public-read
+          from: ~/project/dist
+          to: 's3://exalted-apps/exalted-api/${RELEASE_VERSION}'
 
 workflows:
   install-build-workflow:
@@ -44,8 +45,6 @@ workflows:
           filters:
             tags:
               only: /release\/.*/
-            branches: 
-              ignore: /.*/
       - deploy-to-s3:
           context:
             - exalted
