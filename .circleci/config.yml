@@ -30,15 +30,13 @@ jobs:
           command: |
             echo 'export RELEASE_VERSION=`echo ${CIRCLE_BRANCH} | cut -d '/' -f 2`' >> "$BASH_ENV"
             source $BASH_ENV
-            echo ${CIRCLE_BRANCH}
-            echo $RELEASE_VERSION
       - checkout
       - attach_workspace:
           at: ~/
       - aws-s3/sync:
           arguments: --acl public-read
           from: ~/project/dist
-          to: 's3://exalted-apps/${RELEASE_VERSION}/exalted-api'
+          to: 's3://exalted-apps/exalted-api/${RELEASE_VERSION}'
 
 workflows:
   install-build-workflow:
