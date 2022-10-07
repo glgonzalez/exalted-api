@@ -30,11 +30,13 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          command: echo ${CIRCLE_TAG}
-      - aws-s3/sync:
-          arguments: --acl public-read
-          from: ~/project/dist
-          to: 's3://exalted-apps/${CIRCLE_TAG}/exalted-api'
+          command: |
+            export "echo RELEASE_VERSION=${CIRCLE_TAG} | cut -d '/' -f 2"
+            echo $RELEASE_VERSION
+      # - aws-s3/sync:
+      #     arguments: --acl public-read
+      #     from: ~/project/dist
+      #     to: 's3://exalted-apps/${CIRCLE_TAG}/exalted-api'
 
 workflows:
   install-build-workflow:
