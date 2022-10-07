@@ -35,10 +35,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
-      # - aws-s3/sync:
-      #     arguments: --acl public-read
-      #     from: ~/project/dist
-      #     to: 's3://exalted-apps/${CIRCLE_TAG}/exalted-api'
+      - aws-s3/sync:
+          arguments: --acl public-read
+          from: ~/project/dist
+          to: 's3://exalted-apps/${RELEASE_VERSION}/exalted-api'
 
 workflows:
   install-build-workflow:
