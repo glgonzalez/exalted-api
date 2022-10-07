@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.2
+  asw-s3: circleci/aws-s3@3.0.0
 
 jobs:
   build:
@@ -22,18 +23,29 @@ jobs:
           paths: 
             - project/dist
             - project/node_modules
-  test:
-    executor: node/default
+  deploy-to-s3:
+    docker:
+      - image: 'cimg/python:3.6'
     steps:
+      - checkout
       - attach_workspace:
           at: ~/
-      - run:
-          command: ls node_modules
+      - aws-s3/sync:
+          arguments: --acl public-read
+          from: project/dist
+          to: 's3://exalted-apps/{CLI_TAGS}/exalted-api'
 
 workflows:
   install-build-workflow:
     jobs:
       - build
-      - test:
+      - deploy-to-s3:
+          context:
+            - exalted
           requires:
             - build
+          filters:
+            tags:
+              only: /release\/.*/
+            branches:
+              ignore: /.*/
