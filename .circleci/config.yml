@@ -22,7 +22,6 @@ jobs:
           root: ~/
           paths: 
             - project/dist
-            - project/node_modules
   deploy-to-s3:
     docker:
       - image: 'cimg/python:3.6'
@@ -32,7 +31,7 @@ jobs:
           at: ~/
       - aws-s3/sync:
           arguments: --acl public-read
-          from: project/dist
+          from: ~/project/dist
           to: 's3://exalted-apps/{CLI_TAGS}/exalted-api'
 
 workflows:
