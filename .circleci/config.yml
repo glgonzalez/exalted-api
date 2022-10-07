@@ -40,19 +40,19 @@ jobs:
 workflows:
   install-build-workflow:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /release\/.*/
-            branches: 
-              ignore: /.*/
+      - build
+          # filters:
+          #   tags:
+          #     only: /release\/.*/
+          #   branches: 
+          #     ignore: /.*/
       - deploy-to-s3:
           context:
             - exalted
           requires:
             - build
-          filters:
-            tags:
-              only: /release\/.*/
-            branches:
-              ignore: /.*/
+          # filters:
+          #   tags:
+          #     only: /release\/.*/
+          #   branches:
+          #     ignore: /.*/
