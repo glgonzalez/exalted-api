@@ -3,6 +3,15 @@ orbs:
   node: circleci/node@5.0.2
   aws-s3: circleci/aws-s3@3.0.0
 
+commands:
+  get-version:
+    description: Get version from tag
+    steps:
+      - run:
+          command: |
+            echo 'export RELEASE_VERSION=`echo ${CIRCLE_TAG} | cut -d '/' -f 2`' >> "$BASH_ENV"
+            source $BASH_ENV
+
 jobs:
   build:
     executor: node/default
@@ -26,10 +35,7 @@ jobs:
     docker:
       - image: 'cimg/python:3.6'
     steps:
-      - run:
-          command: |
-            echo 'export RELEASE_VERSION=`echo ${CIRCLE_TAG} | cut -d '/' -f 2`' >> "$BASH_ENV"
-            source $BASH_ENV
+      - get-version
       - checkout
       - attach_workspace:
           at: ~/
